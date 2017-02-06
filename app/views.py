@@ -6,8 +6,12 @@ This file creates your application.
 """
 
 from app import app
-from flask import render_template, request, redirect, url_for
+from send_mail import send_mail
+from flask import Flask, flash, render_template, request, redirect, url_for
 
+
+###Secret key to allow session flashing
+app.secret_key = 'this is my randomly generated secret key'
 
 ###
 # Routing for your application.
@@ -23,6 +27,32 @@ def home():
 def about():
     """Render the website's about page."""
     return render_template('about.html', name="Mary Jane")
+    
+    
+@app.route('/contact/',  methods=['GET', 'POST'])
+def contact():
+    
+    if request.method =='POST':
+        name = request.form['name']
+        email = request.form['email']
+        subject = request.form['subject']
+        msg = request.form['message']
+        
+        if send_mail(name, email, subject, msg):
+            flash('Email sent!', 'success')
+        else:
+            flash('There was an error!', 'error')
+            
+        return render_template('contact.html')
+        
+    else:   
+        """Render the website's contact page."""
+        return render_template('contact.html')
+    
+
+    
+    
+    
 
 
 ###
