@@ -1,3 +1,15 @@
 body {
     padding-top: 50px;
 }
+
+
+#heading h1{
+    width: 100%;
+   padding: 20px;
+   border-bottom: 0.2px solid #333;
+   text-align: center;
+}
+
+.required{
+    color: red;
+}

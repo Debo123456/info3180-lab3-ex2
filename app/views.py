@@ -40,10 +40,12 @@ def contact():
         
         if send_mail(name, email, subject, msg):
             flash('Email sent!', 'success')
+            return render_template('home.html')
         else:
             flash('There was an error!', 'error')
+            return render_template('contact.html')
             
-        return render_template('contact.html')
+        
         
     else:   
         """Render the website's contact page."""
